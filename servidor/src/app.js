@@ -2,6 +2,8 @@ import { AdapEntrada_PeticionWeb } from './infraestructura/adaptadores/entrada/A
 import { CasoUso_Mensaje } from './aplicacion/caso_uso/CasoUso_Mensaje.js'
 import express from 'express'
 import cors from 'cors'
+import { CasoUso_Usuario } from './aplicacion/caso_uso/CasoUso_Usuario.js'
+import { AdapEntrada_UsuarioWeb } from './infraestructura/adaptadores/entrada/AdapEntrada_UsuarioWeb.js'
 
 const app = express()
 app.use(cors())
@@ -25,6 +27,18 @@ app.get('/6A/mensaje-no-bloqueante', async(req, res) => {
     setTimeout(promise, 10000);
     adapEntrada.leerMensaje(req,res);
   });
+  }
+)
+
+app.get('/6A/usuario', async(req, res) => {
+  const cuUsuario= new CasoUso_Usuario();
+  const adap = new AdapEntrada_UsuarioWeb(cuUsuario);
+  
+  
+    adapEntrada.leerMensaje(req,res);
+    adap.autentica(req,res);
+    
+  
   }
 )
 
