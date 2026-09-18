@@ -1,13 +1,13 @@
 import { PuertoEntradaUsuarioWeb } from "../../../aplicacion/puerto/entrada/PuertoEntradaUsuarioWeb.js";
 
-export class AdapEntrada_UsuarioWeb extends PuertoEntradaMensaje{
+export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb{
     constructor(casoUso){
         super();
         this.casoUso = casoUso;
     }
-    leerMensaje(req,res){
+    autentica(req,res){
         res.json({
-            mensaje: this.casoUso.leerMensaje()
+            mensaje: this.casoUso.leerUsuario()
         })
     }
 }

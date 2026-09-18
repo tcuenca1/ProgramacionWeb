@@ -31,14 +31,13 @@ app.get('/6A/mensaje-no-bloqueante', async(req, res) => {
 )
 
 app.get('/6A/usuario', async(req, res) => {
+  const usu= req.query.usu;
+  const cont = req.query.cont;
   const cuUsuario= new CasoUso_Usuario();
   const adap = new AdapEntrada_UsuarioWeb(cuUsuario);
-  
-  
+
     adapEntrada.leerMensaje(req,res);
     adap.autentica(req,res);
-    
-  
   }
 )
 

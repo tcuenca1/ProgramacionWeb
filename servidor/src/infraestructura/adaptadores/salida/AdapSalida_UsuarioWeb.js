@@ -1,13 +1,20 @@
-import { PuertoEntradaUsuarioWeb } from "../../../aplicacion/puerto/entrada/PuertoEntradaUsuarioWeb.js";
+import { PuertoSalidaUsuarioWeb } from "../../../aplicacion/puerto/entrada/PuertoSalidaUsuarioWeb.js";
 
-export class AdapEntrada_UsuarioWeb extends PuertoEntradaMensaje{
+export class AdapSalida_UsuarioWeb extends PuertoSalidaUsuarioWeb{
     constructor(casoUso){
         super();
         this.casoUso = casoUso;
+    }
+    LeerUsuario(){
+        return{
+            usuario: "juan",
+            contrasena: "perez" 
+        }
     }
     leerMensaje(req,res){
         res.json({
             mensaje: this.casoUso.leerMensaje()
         })
     }
+
 }
