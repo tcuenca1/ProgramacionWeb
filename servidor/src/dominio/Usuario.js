@@ -1,16 +1,15 @@
 export class Usuario{
-    constructor(Usuario,contrasena){
-        this.Usuario= Usuario;
+    constructor(usuario,contrasena){
+        this.usuario= usuario;
         this.contrasena= contrasena;
     }
-    ValidarUsuario(usu,contra){
-        if(usu===this.usuario && contra ==this.contrasena)
+    validarUsuario(usu,contra){
+        if(usu===this.usuario && contra ===this.contrasena)
         {
             return true;
         }
         else{
-            
-
+            return false;
         }
     }
 }

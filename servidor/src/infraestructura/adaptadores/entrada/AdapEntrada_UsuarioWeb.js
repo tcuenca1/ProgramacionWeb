@@ -6,8 +6,9 @@ export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb{
         this.casoUso = casoUso;
     }
     autentica(req,res){
+        const resultado = this.casoUso.validarUsuario();
         res.json({
-            mensaje: this.casoUso.leerUsuario()
+            message: resultado
         })
     }
 }

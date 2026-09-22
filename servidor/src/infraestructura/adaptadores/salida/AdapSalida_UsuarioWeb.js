@@ -1,4 +1,4 @@
-import { PuertoSalidaUsuarioWeb } from "../../../aplicacion/puerto/entrada/PuertoSalidaUsuarioWeb.js";
+import { PuertoSalidaUsuarioWeb } from "../../../aplicacion/puerto/salida/PuertoSalidaUsuarioWeb.js";
 
 export class AdapSalida_UsuarioWeb extends PuertoSalidaUsuarioWeb{
     constructor(casoUso){
