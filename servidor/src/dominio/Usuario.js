@@ -3,8 +3,8 @@ export class Usuario{
         this.usuario= usuario;
         this.contrasena= contrasena;
     }
-    validarUsuario(usu,contra){
-        if(usu===this.usuario && contra ===this.contrasena)
+    validarUsuario(dto){
+        if(usu===dto.getNombre() && contra ===dto.getContrasena())
         {
             return true;
         }

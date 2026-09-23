@@ -4,6 +4,7 @@ import express from 'express'
 import cors from 'cors'
 import { CasoUso_Usuario } from './aplicacion/caso_uso/CasoUso_Usuario.js'
 import { AdapEntrada_UsuarioWeb } from './infraestructura/adaptadores/entrada/AdapEntrada_UsuarioWeb.js'
+import { DtoUsuario } from './aplicacion/dto/DtoUsuario.js'
 
 const app = express()
 app.use(cors())
@@ -33,8 +34,9 @@ app.get('/6A/mensaje-no-bloqueante', async(req, res) => {
 app.get('/6A/usuario', async(req, res) => {
   const usu= req.query.usu;
   const cont = req.query.cont;
-  const cuUsuario= new CasoUso_Usuario(usu, cont);
-  const adap = new AdapEntrada_UsuarioWeb(cuUsuario);
+  const dtoUsuario = new DtoUsuario(usu, cont); //creacion de DTO
+  const cuUsuario= new CasoUso_Usuario(dtoUsuario);
+  const adap = new AdapEntrada_UsuarioWeb(dtoUsuario);
 
   adap.autentica(req,res);
 }
