@@ -1,5 +1,4 @@
 export class DtoUsuario {
-<<<<<<< HEAD
     constructor(nombre, contrasena, valido, ciudad, telefono) {
         this.nombre = nombre;
         this.contrasena = contrasena;
@@ -46,26 +45,5 @@ export class DtoUsuario {
 
     setTelefono(telefono) {
         this.telefono = telefono;
-=======
-    constructor(nombre, contrasena){
-        this.nombre = nombre
-        this.contrasena = contrasena
-    }
-
-    getNombre(){
-        return this.nombre
-    }
-
-    setNombre(nombre){
-        this.nombre = nombre
-    }
-
-    getContrasena(){
-        return this.contrasena
-    }
-
-    setContrasena(contrasena){
-        this.contrasena = contrasena
->>>>>>> 5cf286b01cff3626768519e9f895a155df0ef4bf
     }
 }
