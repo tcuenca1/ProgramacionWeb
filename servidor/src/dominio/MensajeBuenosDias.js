@@ -1,7 +1,5 @@
-class MensajeBuenosDias{
-
-holaMundo(){
-    return "Buenos dias";
-}
-
+export class MensajeBuenosDias {
+    holaMundo() {
+        return "Buenos dias";
+    }
 }

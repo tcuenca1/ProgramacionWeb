@@ -1,15 +1,13 @@
-export class Usuario{
-    constructor(usuario,contrasena){
-        this.usuario= usuario;
-        this.contrasena= contrasena;
+export class Usuario {
+    constructor(usuario, contrasena) {
+        this.usuario = usuario;
+        this.contrasena = contrasena;
     }
-    validarUsuario(usu,contra){
-        if(usu===this.usuario && contra ===this.contrasena)
-        {
+
+    validarUsuario(dto) {
+        if (dto.getNombre() === this.usuario && dto.getContrasena() === this.contrasena) {
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 }

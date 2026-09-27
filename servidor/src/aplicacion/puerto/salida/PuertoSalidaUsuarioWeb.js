@@ -1,7 +1,5 @@
 export class PuertoSalidaUsuarioWeb {
-    usuario(){
-        throw new Error("Debes implementar leerMensaje")
+    usuario() {
+        throw new Error("Debes implementar usuario");
     }
-    //
-    
 }

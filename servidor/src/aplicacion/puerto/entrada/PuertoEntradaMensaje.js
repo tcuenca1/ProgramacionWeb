@@ -1,5 +1,5 @@
 export class PuertoEntradaMensaje {
-    leerMensaje(){
-        throw new Error("Debes implementar leerMensaje")
+    leerMensaje() {
+        throw new Error("Debes implementar leerMensaje");
     }
 }

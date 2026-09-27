@@ -1,5 +1,5 @@
 export class PuertoEntradaUsuarioWeb {
-    autentica(){
-        throw new Error("Debes implementar leerMensaje")
+    autentica() {
+        throw new Error("Debes implementar autentica");
     }
 }
