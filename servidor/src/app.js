@@ -5,6 +5,7 @@ import { AdapEntrada_UsuarioWeb } from './infraestructura/adaptadores/entrada/Ad
 import { CasoUso_Mensaje } from './aplicacion/caso_uso/CasoUso_Mensaje.js';
 import { CasoUso_UsuarioLectura } from './aplicacion/caso_uso/lectura/CasoUso_UsuarioLectura.js';
 import { DtoUsuario } from './aplicacion/dto/DtoUsuario.js';
+import { AdapSalida_SerializacionBinaria } from './infraestructura/adaptadores/salida/AdapSalida_SerializacionBinaria.js';
 
 const app = express();
 app.use(cors());
@@ -37,6 +38,20 @@ app.get('/6A/usuario', async (req, res) => {
     const cuUsuario = new CasoUso_UsuarioLectura(dtoUsuario);
     const adap = new AdapEntrada_UsuarioWeb(cuUsuario);
     adap.autentica(req, res);
+});
+
+app.get('/6A/usuario-binario', async (req, res) => {
+    const usu = req.query.usu ?? 'juan';
+    const cont = req.query.cont ?? 'perez';
+    const dtoUsuario = new DtoUsuario(usu, cont, true, 'Machala', '0961863035');
+    
+    const adapBinario = new AdapSalida_SerializacionBinaria();
+    const resultadoBinario = adapBinario.serializarYDeserializar(dtoUsuario);
+
+    res.json({
+        mensaje: "Serialización y Deserialización Binaria con V8 exitosa",
+        ...resultadoBinario
+    });
 });
 
 app.listen(3000, () => {

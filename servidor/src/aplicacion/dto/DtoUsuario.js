@@ -22,7 +22,7 @@ export class DtoUsuario {
     setContrasena(contrasena) {
         this.contrasena = contrasena;
     }
-
+    
     getValido() {
         return this.valido;
     }
@@ -35,8 +35,8 @@ export class DtoUsuario {
         return this.ciudad;
     }
 
-    setCuidad(cuidad) {
-        this.cuidad = cuidad;
+    setCiudad(ciudad) {
+        this.ciudad = ciudad;
     }
 
     getTelefono() {

@@ -12,6 +12,6 @@ export class CasoUso_UsuarioLectura {
         const dominioUsuario = new Usuario(resul.usuario, resul.contrasena);
         const estado = dominioUsuario.validarUsuario(this.dto);
         this.dto.setValido(estado);
-        return `${this.dto.getNombre()} ${this.dto.getContrasena()} ${this.dto.getValido()} ${this.dto.getCiudad()} ${this.dto.getTelefono()}`;
+        return this.dto.getNombre() + ', ' + this.dto.getValido() + ', ' + this.dto.getCiudad() + ', ' + this.dto.getTelefono();
     }
 }
