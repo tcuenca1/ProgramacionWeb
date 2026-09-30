@@ -7,6 +7,7 @@ export class AdapEntrada_PeticionWeb extends PuertoEntradaMensaje {
     }
 
     leerMensaje(req, res) {
+        const dto = this.casoUso.leerMensaje()
         res.json({
             mensaje: this.casoUso.leerMensaje()
         });

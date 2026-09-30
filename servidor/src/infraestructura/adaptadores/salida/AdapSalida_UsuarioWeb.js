@@ -1,21 +1,16 @@
 import { PuertoSalidaUsuarioWeb } from "../../../aplicacion/puerto/salida/PuertoSalidaUsuarioWeb.js";
 
 export class AdapSalida_UsuarioWeb extends PuertoSalidaUsuarioWeb {
-    constructor(casoUso) {
+    constructor() {
         super();
-        this.casoUso = casoUso;
     }
 
     leerUsuario() {
         return {
             usuario: "juan",
-            contrasena: "perez"
+            contrasena: "perez",
+            ciudad: "Machala",
+            telefono: "0961863035"
         };
-    }
-
-    leerMensaje(req, res) {
-        res.json({
-            mensaje: this.casoUso.leerMensaje()
-        });
     }
 }

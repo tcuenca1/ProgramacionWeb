@@ -15,6 +15,7 @@ export class AdapSalida_SerializacionBinaria {
         const objetoRestaurado = v8.deserialize(bufferBinario);
 
         return {
+            bufferBinario: bufferBinario,
             bufferBinarioHex: bufferBinario.toString('hex'),
             bytesTotales: bufferBinario.length,
             objetoRestaurado

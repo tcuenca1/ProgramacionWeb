@@ -1,11 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import { AdapEntrada_PeticionWeb } from './infraestructura/adaptadores/entrada/AdapEntrada_PeticionWeb.js';
-import { AdapEntrada_UsuarioWeb } from './infraestructura/adaptadores/entrada/AdapEntrada_UsuarioWeb.js';
 import { CasoUso_Mensaje } from './aplicacion/caso_uso/CasoUso_Mensaje.js';
-import { CasoUso_UsuarioLectura } from './aplicacion/caso_uso/lectura/CasoUso_UsuarioLectura.js';
 import { DtoUsuario } from './aplicacion/dto/DtoUsuario.js';
 import { AdapSalida_SerializacionBinaria } from './infraestructura/adaptadores/salida/AdapSalida_SerializacionBinaria.js';
+import { contenedorUsuario } from './contenedor/ContenedorUsuario.js';
 
 const app = express();
 app.use(cors());
@@ -31,13 +30,8 @@ app.get('/6A/mensaje-no-bloqueante', async (req, res) => {
     });
 });
 
-app.get('/6A/usuario', async (req, res) => {
-    const usu = req.query.usu;
-    const cont = req.query.cont;
-    const dtoUsuario = new DtoUsuario(usu, cont, false, 'Machala', '0961863035');
-    const cuUsuario = new CasoUso_UsuarioLectura(dtoUsuario);
-    const adap = new AdapEntrada_UsuarioWeb(cuUsuario);
-    adap.autentica(req, res);
+app.get('/6A/usuario', (req, res) => {
+    contenedorUsuario.adap.autentica(req, res);
 });
 
 app.get('/6A/usuario-binario', async (req, res) => {

@@ -1,4 +1,5 @@
 import { PuertoEntradaUsuarioWeb } from "../../../aplicacion/puerto/entrada/PuertoEntradaUsuarioWeb.js";
+import { DtoUsuario } from "../../../aplicacion/dto/DtoUsuario.js";
 
 export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb {
     constructor(casoUso) {
@@ -7,7 +8,9 @@ export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb {
     }
 
     autentica(req, res) {
-        const resultado = this.casoUso.validarUsuario();
+        
+        const dtoUsuario = new DtoUsuario(req.query.usu, req.query.cont, false, null, null);
+        const resultado = this.casoUso.validarUsuario(dtoUsuario);
         res.json({
             message: resultado
         });

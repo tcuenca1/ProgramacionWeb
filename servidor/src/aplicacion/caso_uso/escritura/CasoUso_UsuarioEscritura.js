@@ -1,14 +1,13 @@
-import { AdapSalida_UsuarioWeb } from '../../../infraestructura/adaptadores/salida/AdapSalida_UsuarioWeb.js';
 import { Usuario } from '../../../dominio/Usuario.js';
 
 export class CasoUso_UsuarioEscritura {
-    constructor(dto) {
-        this.dto = dto;
+    constructor(adaptadorSalida) {
+        this.adaptadorSalida = adaptadorSalida;
     }
 
-    crearUsuario() {}
+    crearUsuario(dto) {}
 
-    eliminarUsuario() {}
+    eliminarUsuario(dto) {}
 
-    actualizarUsuario() {}
+    actualizarUsuario(dto) {}
 }
