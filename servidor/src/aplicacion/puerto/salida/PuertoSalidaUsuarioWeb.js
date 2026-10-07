@@ -1,5 +1,5 @@
 export class PuertoSalidaUsuarioWeb {
-    leerUsuario() {
+    leerUsuario(dto) {
         throw new Error("Debes implementar leerUsuario");
     }
 }

@@ -1,4 +1,5 @@
 services:
+
   servidor:
     build: ./servidor
     container_name: servidor-desarrollo
@@ -7,14 +8,72 @@ services:
     volumes:
       - ./servidor:/app
       - /app/node_modules
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: programacion_web
 
-  cliente:
-    build: ./cliente
-    container_name: cliente-desarrollo
-    ports:
-      - "5173:5173"
-    volumes:
-      - ./cliente:/app
-      - /app/node_modules
+      MONGO_URL: mongodb://admin:admin123@mongo:27017/programacion_web?authSource=admin
     depends_on:
-      - servidor
+      - postgres
+      - mongo
+
+
+  postgres:
+    image: postgres:17
+    container_name: postgres_web
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: programacion_web
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  adminer:
+    image: adminer
+    container_name: adminer_web
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+
+  mongo:
+    image: mongo:8.0
+    container_name: mongo_web
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: programacion_web
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo_express_web
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin123@mongo:27017/?authSource=admin
+      ME_CONFIG_BASICAUTH_ENABLED: "true"
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123
+    depends_on:
+      - mongo
+
+
+volumes:
+  postgres_data:
+  mongo_data:
