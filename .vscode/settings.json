@@ -1,0 +1,10 @@
+{
+  "material-icon-theme.folders.associations": {
+    "cliente": "client",
+    "servidor": "server",
+    "aplicacion": "",
+    "contenedor": "container",
+    "dominio": "",
+    "puerto": ""
+  }
+}

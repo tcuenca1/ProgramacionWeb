@@ -1,10 +1,11 @@
 export class DtoUsuario {
-    constructor(nombre, contrasena, valido, ciudad, telefono) {
+    constructor(nombre, contrasena, valido, ciudad, telefono, tipo) {
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.valido = valido;
         this.ciudad = ciudad;
         this.telefono = telefono;
+        this.tipo = tipo;
     }
 
     getNombre() {
@@ -45,5 +46,13 @@ export class DtoUsuario {
 
     setTelefono(telefono) {
         this.telefono = telefono;
+    }
+
+    getTipo() {
+        return this.tipo;
+    }
+
+    setTipo(tipo) {
+        this.tipo = tipo;
     }
 }

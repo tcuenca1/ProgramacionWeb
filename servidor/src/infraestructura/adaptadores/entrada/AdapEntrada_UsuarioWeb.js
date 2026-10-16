@@ -11,8 +11,7 @@ export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb {
         const dtoUsuario = new DtoUsuario(req.query.usu, req.query.cont, false, req.query.ciudad || 'Machala', req.query.tel || '0961863035');
         const resultado = await this.casoUso.validarUsuario(dtoUsuario);
         res.json({
-            status: "success",
-            data: resultado
+            message: resultado
         });
     }
 }

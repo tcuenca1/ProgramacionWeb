@@ -11,12 +11,14 @@ export class CasoUso_UsuarioLectura {
         
         const estado = dominioUsuario.validarUsuario(dto);
         dto.setValido(estado);
+        dto.setTipo(resul.tipo);
         
         return {
             usuario: dto.getNombre(),
             esValido: dto.getValido(),
             ciudad: dto.getCiudad(),
-            telefono: dto.getTelefono()
+            telefono: dto.getTelefono(),
+            tipo: dto.getTipo()
         };
     }
 }
