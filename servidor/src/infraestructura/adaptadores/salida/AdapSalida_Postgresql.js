@@ -1,35 +1,44 @@
 import { PuertoSalidaUsuarioWeb } from "../../../aplicacion/puerto/salida/PuertoSalidaUsuarioWeb.js"
 import { conexionPostgres } from "../../base_dato/ConexionPostgresql.js";
 
-export class AdapSalida_Posgresql extends PuertoSalidaUsuarioWeb {
+export class AdapSalida_Postgresql extends PuertoSalidaUsuarioWeb {
     async leerUsuario(dto) {
-        const sql = "SELECT * FROM usuario WHERE nombre = '" + dto.nombre + "' AND contrasena = '" + dto.constrasena + "'"
-        const resultado = await conexionPostgres.query(sql);
-        const fila = resultado.rows[0];
-        console.log(resultado.rows);
-        if (fila < 0) {
+        try {
+            await conexionPostgres.query(`
+                CREATE TABLE IF NOT EXISTS usuario (
+                    id SERIAL PRIMARY KEY,
+                    nombre VARCHAR(100) NOT NULL,
+                    "contraseña" VARCHAR(100) NOT NULL
+                );
+            `);
+            const check = await conexionPostgres.query("SELECT COUNT(*) FROM usuario");
+            if (parseInt(check.rows[0].count) < 2) {
+                await conexionPostgres.query("INSERT INTO usuario (nombre, "contraseña") VALUES ('juan', 'perez') ON CONFLICT DO NOTHING");
+            }
+
+            const sql = "SELECT * FROM usuario WHERE nombre = $1 AND "contraseña" = $2";
+            const resultado = await conexionPostgres.query(sql, [dto.getNombre(), dto.getContrasena()]);
+            const fila = resultado.rows[0];
+            console.log("Query ejecutada:", sql);
+            console.log("Valores:", [dto.getNombre(), dto.getContrasena()]);
+            console.log("Resultado filas:", resultado.rows);
+            if (!fila) {
+                return {
+                    usuario: "",
+                    contrasena: ""
+                };
+            } else {
+                return {
+                    usuario: fila.nombre,
+                    contrasena: fila["contraseña"]
+                };
+            }
+        } catch (error) {
+            console.error("Error al leer usuario de PostgreSQL:", error);
             return {
                 usuario: "",
                 contrasena: ""
-            }
-        } else{
-            return {
-                usuario: fila.nombre,
-                contrasena: fila.contrasena
-            }
-        }
-
-        /*console.log(resultado.rows);
-        const fila = resultado.rows[0];
-        if(fila>0)
-            return {
-                usuario: fila.nombre,
-                contrasena: fila.contrasena
             };
-        else
-            return {
-                // ... (código cortado)
-            }
-        }*/
+        }
     }
 }

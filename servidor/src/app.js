@@ -12,6 +12,10 @@ app.use(cors());
 const msj = new CasoUso_Mensaje();
 const adapEntrada = new AdapEntrada_PeticionWeb(msj);
 
+app.get('/', (req, res) => {
+    res.json({ message: 'Bienvenido al servidor backend de ProgramacionWeb' });
+});
+
 app.get('/api/hola', (req, res) => {
     res.json({ message: 'Hola desde el servidor con Docker' });
 });
@@ -30,8 +34,8 @@ app.get('/6A/mensaje-no-bloqueante', async (req, res) => {
     });
 });
 
-app.get('/6A/usuario', (req, res) => {
-    contenedorUsuario.adap.autentica(req, res);
+app.get('/6A/usuario', async (req, res) => {
+    await contenedorUsuario.adap.autentica(req, res);
 });
 
 app.get('/6A/usuario-binario', async (req, res) => {

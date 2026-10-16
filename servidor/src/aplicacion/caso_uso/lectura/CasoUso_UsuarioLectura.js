@@ -5,12 +5,18 @@ export class CasoUso_UsuarioLectura {
         this.adaptadorSalida = adaptadorSalida;
     }
 
-    validarUsuario(dto) {
-        const resul = this.adaptadorSalida.leerUsuario(); //simular lectura en bd
-        const dominioUsuario = new Usuario(resul.usuario, resul.contrasena);
+    async validarUsuario(dto) {
+        const resul = await this.adaptadorSalida.leerUsuario(dto);
+        const dominioUsuario = new Usuario(resul.usuario, resul.contrasena, dto.getCiudad(), dto.getTelefono());
         
         const estado = dominioUsuario.validarUsuario(dto);
         dto.setValido(estado);
-        return dto.getNombre() + ', ' + dto.getValido() + ', ' + dto.getCiudad() + ', ' + dto.getTelefono();
+        
+        return {
+            usuario: dto.getNombre(),
+            esValido: dto.getValido(),
+            ciudad: dto.getCiudad(),
+            telefono: dto.getTelefono()
+        };
     }
 }

@@ -7,12 +7,12 @@ export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb {
         this.casoUso = casoUso;
     }
 
-    autentica(req, res) {
-        
-        const dtoUsuario = new DtoUsuario(req.query.usu, req.query.cont, false, null, null);
-        const resultado = this.casoUso.validarUsuario(dtoUsuario);
+    async autentica(req, res) {
+        const dtoUsuario = new DtoUsuario(req.query.usu, req.query.cont, false, req.query.ciudad || 'Machala', req.query.tel || '0961863035');
+        const resultado = await this.casoUso.validarUsuario(dtoUsuario);
         res.json({
-            message: resultado
+            status: "success",
+            data: resultado
         });
     }
 }

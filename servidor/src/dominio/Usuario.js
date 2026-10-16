@@ -1,7 +1,9 @@
 export class Usuario {
-    constructor(usuario, contrasena) {
+    constructor(usuario, contrasena, ciudad, telefono) {
         this.usuario = usuario;
         this.contrasena = contrasena;
+        this.ciudad = ciudad;
+        this.telefono = telefono;
     }
 
     validarUsuario(dto) {
