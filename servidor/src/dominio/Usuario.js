@@ -1,13 +1,14 @@
 export class Usuario {
-    constructor(usuario, contrasena, ciudad, telefono) {
-        this.usuario = usuario;
+    constructor(nombre, contrasena, ciudad, telefono, tipo) {
+        this.nombre = nombre;
         this.contrasena = contrasena;
         this.ciudad = ciudad;
         this.telefono = telefono;
+        this.tipo = tipo;
     }
 
     validarUsuario(dto) {
-        if (dto.getNombre() === this.usuario && dto.getContrasena() === this.contrasena) {
+        if (dto.getNombre() === this.nombre && dto.getContrasena() === this.contrasena) {
             return true;
         }
         return false;

@@ -1,14 +1,15 @@
 import { Usuario } from './Usuario.js';
 
 export class Administrador extends Usuario {
-    constructor(usuario, contrasena, ciudad, telefono, nivelAcceso, departamento) {
-        super(usuario, contrasena, ciudad, telefono);
-        this.nivelAcceso = nivelAcceso;
-        this.departamento = departamento;
-    }
-
-    validarUsuario(dto) {
-        const baseValid = super.validarUsuario(dto);
-        return baseValid;
+    constructor(nombre, contrasena, tipo, nivelAcceso = null, departamento = null, ciudad = null, telefono = null) {
+        if (arguments.length <= 3) {
+            super(nombre, contrasena, null, null, tipo);
+            this.nivelAcceso = null;
+            this.departamento = null;
+        } else {
+            super(nombre, contrasena, ciudad, telefono, tipo);
+            this.nivelAcceso = nivelAcceso;
+            this.departamento = departamento;
+        }
     }
 }

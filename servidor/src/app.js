@@ -1,16 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import { AdapEntrada_PeticionWeb } from './infraestructura/adaptadores/entrada/AdapEntrada_PeticionWeb.js';
-import { CasoUso_Mensaje } from './aplicacion/caso_uso/CasoUso_Mensaje.js';
 import { DtoUsuario } from './aplicacion/dto/DtoUsuario.js';
 import { AdapSalida_SerializacionBinaria } from './infraestructura/adaptadores/salida/AdapSalida_SerializacionBinaria.js';
 import { contenedorUsuario } from './contenedor/ContenedorUsuario.js';
 
 const app = express();
 app.use(cors());
-
-const msj = new CasoUso_Mensaje();
-const adapEntrada = new AdapEntrada_PeticionWeb(msj);
 
 app.get('/', (req, res) => {
     res.json({ message: 'Bienvenido al servidor backend de ProgramacionWeb' });
@@ -27,7 +22,6 @@ app.get('/6A/mensaje-bloqueante', (req, res) => {
 });
 
 app.get('/6A/mensaje-no-bloqueante', async (req, res) => {
-    let c = Date.now();
     await new Promise((promise) => {
         setTimeout(promise, 10000);
         adapEntrada.leerMensaje(req, res);

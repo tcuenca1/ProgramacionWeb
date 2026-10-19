@@ -2,9 +2,18 @@
   "material-icon-theme.folders.associations": {
     "cliente": "client",
     "servidor": "server",
-    "aplicacion": "",
+    "aplicacion": "app",
     "contenedor": "container",
-    "dominio": "",
-    "puerto": ""
+    "dominio": "core",
+    "puerto": "api",
+    "caso_uso": "functions",
+    "escritura": "import",
+    "lectura": "export",
+    "dto": "interface",
+    "entrada": "import",
+    "salida": "export",
+    "infraestructura": "environment",
+    "adaptadores": "plugin",
+    "base_dato": "database"
   }
 }
