@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "mongodb": "^7.7.0",
-    "pg": "^8.23.1"
+    "pg": "^8.23.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8"
   }
 }

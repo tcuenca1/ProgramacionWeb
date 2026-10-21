@@ -3,6 +3,7 @@ import cors from 'cors';
 import { DtoUsuario } from './aplicacion/dto/DtoUsuario.js';
 import { AdapSalida_SerializacionBinaria } from './infraestructura/adaptadores/salida/AdapSalida_SerializacionBinaria.js';
 import { contenedorUsuario } from './contenedor/ContenedorUsuario.js';
+import { ormPostgres } from './infraestructura/base_dato/OrmPostgresql.js';
 
 const app = express();
 app.use(cors());
@@ -45,6 +46,13 @@ app.get('/6A/usuario-binario', async (req, res) => {
         ...resultadoBinario
     });
 });
+
+try {
+    await ormPostgres.authenticate();
+    console.log('Conexión ORM (Sequelize) a PostgreSQL establecida');
+} catch (error) {
+    console.error('No se pudo conectar a PostgreSQL con el ORM:', error.message);
+}
 
 app.listen(3000, () => {
     console.log('Servidor corriendo en puerto 3000');
