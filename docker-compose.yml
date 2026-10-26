@@ -21,6 +21,20 @@ services:
       - mongo
 
 
+  cliente:
+    build: ./cliente
+    container_name: cliente-desarrollo
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./cliente:/app
+      - /app/node_modules
+    environment:
+      VITE_API_URL: http://localhost:3000
+    depends_on:
+      - servidor
+
+
   postgres:
     image: postgres:17
     container_name: postgres_web
