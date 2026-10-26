@@ -13,4 +13,23 @@ export class Usuario {
         }
         return false;
     }
+
+    static tipos = {};
+
+    static registrarTipo(claves, crear) {
+        for (const clave of claves) {
+            Usuario.tipos[clave] = crear;
+        }
+    }
+
+    static crearUsuarioDominio(datos) {
+        const crear = Usuario.tipos[datos.tipo];
+        const obj = crear
+            ? crear(datos)
+            : new Usuario(datos.nombre, datos.contrasena, datos.ciudad, datos.telefono, datos.tipo);
+        if (datos.id !== undefined && datos.id !== null) {
+            obj.id = String(datos.id);
+        }
+        return obj;
+    }
 }

@@ -4,9 +4,9 @@ import {Invitado} from "../../../dominio/Invitado.js";
 import {Personal} from "../../../dominio/Personal.js";
 import {Usuario} from "../../../dominio/Usuario.js";
 import {usuarioModelo} from "../../base_dato/modelo/PgModeloUsuario.js"
+import {pgModelosPorTipo} from "../../base_dato/modelo/PgModeloRoles.js"
 export class AdapSalida_PosgresqlOrm extends PuertoSalidaUsuarioWeb{
-    async leerUsuario(dto){ 
-        //const resultado = await conexionPostgres.query("SELECT * FROM usuario where nombre='"+dto.nombre+"' AND contrasena='"+dto.contrasena+"'");
+    async leerUsuario(dto){
         const resultado = await usuarioModelo.findOne({
             where:{
                 nombre: dto.nombre,
@@ -34,9 +34,44 @@ export class AdapSalida_PosgresqlOrm extends PuertoSalidaUsuarioWeb{
            }
            obj.ciudad = resultado.ciudad;
            obj.telefono = resultado.telefono;
-           return obj; 
+           return obj;
         }else{
              return obj = new Invitado("","","");
-        }     
+        }
+    }
+
+    async filaCompleta(fila){
+        const modeloRol = pgModelosPorTipo[fila.tipo];
+        if (modeloRol){
+            const filaRol = await modeloRol.findByPk(fila.id);
+            if (filaRol) return filaRol.get({plain:true});
+        }
+        return fila.get({plain:true});
+    }
+
+    async listarUsuarios(){
+        const filas = await usuarioModelo.findAll({order:[["id","ASC"]]});
+        const filasRol = {};
+        for (const modeloRol of Object.values(pgModelosPorTipo)){
+            for (const filaRol of await modeloRol.findAll()){
+                filasRol[filaRol.id] = filaRol.get({plain:true});
+            }
+        }
+        return filas.map((fila) => Usuario.crearUsuarioDominio(filasRol[fila.id] ?? fila.get({plain:true})));
+    }
+
+    async crearUsuario(usuario){
+        const modelo = pgModelosPorTipo[usuario.tipo] ?? usuarioModelo;
+        const fila = await modelo.create({...usuario});
+        return Usuario.crearUsuarioDominio(fila.get({plain:true}));
+    }
+
+    async actualizarUsuario(id, usuario){
+        const existente = await usuarioModelo.findByPk(id);
+        if (existente==null) return null;
+        const modelo = pgModelosPorTipo[existente.tipo] ?? usuarioModelo;
+        const {id: _id, tipo, ...campos} = usuario;
+        await modelo.update(campos, {where:{id}});
+        return Usuario.crearUsuarioDominio(await this.filaCompleta(await usuarioModelo.findByPk(id)));
     }
 }

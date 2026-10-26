@@ -1,6 +1,7 @@
 import { Administrador } from "../../../dominio/Administrador.js";
 import { Personal } from "../../../dominio/Personal.js";
 import { Invitado } from "../../../dominio/Invitado.js";
+import { usuarioARespuesta } from "../../dto/RespuestaUsuario.js";
 
 export class CasoUso_UsuarioLectura {
   constructor(adaptadorSalida) {
@@ -45,5 +46,10 @@ export class CasoUso_UsuarioLectura {
     }
 
     return respuesta;
+  }
+
+  async listarUsuarios() {
+    const usuarios = await this.adaptadorSalida.listarUsuarios();
+    return usuarios.map(usuarioARespuesta);
   }
 }

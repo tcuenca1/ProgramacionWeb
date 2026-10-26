@@ -13,3 +13,6 @@ export class Invitado extends Usuario {
         }
     }
 }
+
+Usuario.registrarTipo(['Invitado', '3'], (d) =>
+    new Invitado(d.nombre, d.contrasena, d.tipo, d.motivoVisita, d.fechaExpiracion, d.ciudad, d.telefono));

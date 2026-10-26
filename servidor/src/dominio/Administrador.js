@@ -13,3 +13,6 @@ export class Administrador extends Usuario {
         }
     }
 }
+
+Usuario.registrarTipo(['Administrador', '1'], (d) =>
+    new Administrador(d.nombre, d.contrasena, d.tipo, d.nivelAcceso, d.departamento, d.ciudad, d.telefono));

@@ -13,3 +13,6 @@ export class Personal extends Usuario {
         }
     }
 }
+
+Usuario.registrarTipo(['Personal', '2'], (d) =>
+    new Personal(d.nombre, d.contrasena, d.tipo, d.turno, d.codigoEmpleado, d.ciudad, d.telefono));
