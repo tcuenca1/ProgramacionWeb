@@ -1,14 +1,44 @@
 import express from 'express';
 import cors from 'cors';
+import { randomUUID } from "node:crypto";
+import { performance } from "node:perf_hooks";
 import { DtoUsuario } from './aplicacion/dto/DtoUsuario.js';
 import { AdapSalida_SerializacionBinaria } from './infraestructura/adaptadores/salida/AdapSalida_SerializacionBinaria.js';
 import { contenedorUsuario, contenedorUsuarioOdm } from './contenedor/ContenedorUsuario.js';
 import { ormPostgres } from './infraestructura/base_dato/OrmPostgresql.js';
 import { odmMongo } from './infraestructura/base_dato/OdmMongo.js';
+import { registrarLogAuditoria } from './infraestructura/util/logger.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use((req, res, next) => {
+    req.requestId = randomUUID();
+    const inicio = performance.now();
+    res.setHeader("X-Request-ID", req.requestId);
+
+    registrarLogAuditoria({
+        evento: "PETICION_RECIBIDA",
+        requestId: req.requestId,
+        metodo: req.method,
+        ruta: req.path,
+        tiempo: inicio
+    });
+
+    res.on("finish", () => {
+        registrarLogAuditoria({
+            evento: "PETICION_FINALIZADA",
+            requestId: req.requestId,
+            metodo: req.method,
+            ruta: req.path,
+            estado: res.statusCode,
+            tiempoRespuesta: Math.round(performance.now() - inicio)
+        });
+    });
+
+    next();
+});
 
 app.get('/', (req, res) => {
     res.json({ message: 'Bienvenido al servidor backend de ProgramacionWeb' });
@@ -76,6 +106,8 @@ app.get('/6A/usuario-binario', async (req, res) => {
 try {
     await ormPostgres.authenticate();
     console.log('Conexión ORM (Sequelize) a PostgreSQL establecida');
+    await ormPostgres.sync();
+    console.log('Modelos sincronizados con PostgreSQL (tabla auditoria_evento lista)');
 } catch (error) {
     console.error('No se pudo conectar a PostgreSQL con el ORM:', error.message);
 }

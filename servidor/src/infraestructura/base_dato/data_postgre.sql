@@ -7,6 +7,24 @@ CREATE TABLE IF NOT EXISTS usuario (
     telefono VARCHAR(50)
 );
 
+CREATE TABLE IF NOT EXISTS evento_outbox (
+    id SERIAL PRIMARY KEY,
+    tipo VARCHAR(255) NOT NULL,
+    playload JSONB NOT NULL,
+    publicado BOOLEAN DEFAULT FALSE,
+    creado_en TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    eliminado_en TIMESTAMP WITH TIME ZONE
+);
+
+CREATE TABLE IF NOT EXISTS auditoria_evento (
+    id SERIAL PRIMARY KEY,
+    tipo VARCHAR(255) NOT NULL,
+    payload JSONB NOT NULL,
+    publicado BOOLEAN DEFAULT FALSE,
+    creado_en TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    eliminado_en TIMESTAMP WITH TIME ZONE
+);
+
 CREATE TABLE IF NOT EXISTS administrador (
     nivel_acceso INT NOT NULL,
     departamento VARCHAR(100) NOT NULL

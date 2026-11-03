@@ -14,6 +14,7 @@
     "salida": "export",
     "infraestructura": "environment",
     "adaptadores": "plugin",
-    "base_dato": "database"
+    "base_dato": "database",
+    "modelos": "models"
   }
 }
