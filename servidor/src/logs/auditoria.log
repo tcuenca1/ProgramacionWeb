@@ -176,3 +176,9 @@
 {"timestamp":"2026-11-03T23:21:54.141Z","evento":"PETICION_RECIBIDA","requestId":"450b8468-c6ff-4f3d-8174-82b395fa1d69","metodo":"GET","ruta":"/6A/orm/usuarios","tiempo":167727.705401}
 {"timestamp":"2026-11-03T23:21:54.160Z","evento":"LISTAR_USUARIOS"}
 {"timestamp":"2026-11-03T23:21:54.189Z","evento":"PETICION_FINALIZADA","requestId":"450b8468-c6ff-4f3d-8174-82b395fa1d69","metodo":"GET","ruta":"/6A/orm/usuarios","estado":304,"tiempoRespuesta":48}
+{"timestamp":"2026-11-03T23:28:17.943Z","evento":"PETICION_RECIBIDA","requestId":"e41a7b90-d0c6-4681-9ec3-76b33f12cdc8","metodo":"GET","ruta":"/6A/orm/usuarios","tiempo":551579.816326}
+{"timestamp":"2026-11-03T23:28:17.982Z","evento":"LISTAR_USUARIOS"}
+{"timestamp":"2026-11-03T23:28:18.083Z","evento":"PETICION_FINALIZADA","requestId":"e41a7b90-d0c6-4681-9ec3-76b33f12cdc8","metodo":"GET","ruta":"/6A/orm/usuarios","estado":304,"tiempoRespuesta":140}
+{"timestamp":"2026-11-03T23:28:18.098Z","evento":"PETICION_RECIBIDA","requestId":"d80a49fb-1f2d-420b-a628-060b7fea37e9","metodo":"GET","ruta":"/6A/orm/usuarios","tiempo":551734.720944}
+{"timestamp":"2026-11-03T23:28:18.128Z","evento":"LISTAR_USUARIOS"}
+{"timestamp":"2026-11-03T23:28:18.152Z","evento":"PETICION_FINALIZADA","requestId":"d80a49fb-1f2d-420b-a628-060b7fea37e9","metodo":"GET","ruta":"/6A/orm/usuarios","estado":304,"tiempoRespuesta":54}
