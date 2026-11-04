@@ -182,3 +182,15 @@
 {"timestamp":"2026-11-03T23:28:18.098Z","evento":"PETICION_RECIBIDA","requestId":"d80a49fb-1f2d-420b-a628-060b7fea37e9","metodo":"GET","ruta":"/6A/orm/usuarios","tiempo":551734.720944}
 {"timestamp":"2026-11-03T23:28:18.128Z","evento":"LISTAR_USUARIOS"}
 {"timestamp":"2026-11-03T23:28:18.152Z","evento":"PETICION_FINALIZADA","requestId":"d80a49fb-1f2d-420b-a628-060b7fea37e9","metodo":"GET","ruta":"/6A/orm/usuarios","estado":304,"tiempoRespuesta":54}
+{"timestamp":"2026-11-04T13:50:49.772Z","evento":"PETICION_RECIBIDA","requestId":"d47b5da5-0b39-42b0-b5bf-49216a2f3e94","metodo":"GET","ruta":"/.well-known/appspecific/com.chrome.devtools.json","tiempo":3973.009963}
+{"timestamp":"2026-11-04T13:50:49.781Z","evento":"PETICION_FINALIZADA","requestId":"d47b5da5-0b39-42b0-b5bf-49216a2f3e94","metodo":"GET","ruta":"/.well-known/appspecific/com.chrome.devtools.json","estado":404,"tiempoRespuesta":9}
+{"timestamp":"2026-11-04T13:50:49.944Z","evento":"PETICION_RECIBIDA","requestId":"540da5d0-af5e-4715-93b9-4fea3ba6a4ca","metodo":"GET","ruta":"/.well-known/appspecific/com.chrome.devtools.json","tiempo":4145.354511}
+{"timestamp":"2026-11-04T13:50:49.952Z","evento":"PETICION_FINALIZADA","requestId":"540da5d0-af5e-4715-93b9-4fea3ba6a4ca","metodo":"GET","ruta":"/.well-known/appspecific/com.chrome.devtools.json","estado":404,"tiempoRespuesta":8}
+{"timestamp":"2026-11-04T13:50:49.962Z","evento":"PETICION_RECIBIDA","requestId":"5fc3b5bc-49a9-4ef7-bfd5-f95f1ec8f799","metodo":"GET","ruta":"/.well-known/appspecific/com.chrome.devtools.json","tiempo":4163.386038}
+{"timestamp":"2026-11-04T13:50:49.971Z","evento":"PETICION_FINALIZADA","requestId":"5fc3b5bc-49a9-4ef7-bfd5-f95f1ec8f799","metodo":"GET","ruta":"/.well-known/appspecific/com.chrome.devtools.json","estado":404,"tiempoRespuesta":8}
+{"timestamp":"2026-11-04T13:52:52.766Z","evento":"PETICION_RECIBIDA","requestId":"6e2e63cc-9e4b-4324-b217-4f4c8fbb5d3d","metodo":"GET","ruta":"/6A/orm/usuarios","tiempo":126975.032743}
+{"timestamp":"2026-11-04T13:52:52.772Z","evento":"LISTAR_USUARIOS"}
+{"timestamp":"2026-11-04T13:52:52.796Z","evento":"PETICION_FINALIZADA","requestId":"6e2e63cc-9e4b-4324-b217-4f4c8fbb5d3d","metodo":"GET","ruta":"/6A/orm/usuarios","estado":200,"tiempoRespuesta":30}
+{"timestamp":"2026-11-04T13:52:52.802Z","evento":"PETICION_RECIBIDA","requestId":"5df79a5c-8f5e-40e3-b1fe-2a9c34be9e9c","metodo":"GET","ruta":"/6A/orm/usuarios","tiempo":127011.381416}
+{"timestamp":"2026-11-04T13:52:52.810Z","evento":"LISTAR_USUARIOS"}
+{"timestamp":"2026-11-04T13:52:52.821Z","evento":"PETICION_FINALIZADA","requestId":"5df79a5c-8f5e-40e3-b1fe-2a9c34be9e9c","metodo":"GET","ruta":"/6A/orm/usuarios","estado":304,"tiempoRespuesta":19}

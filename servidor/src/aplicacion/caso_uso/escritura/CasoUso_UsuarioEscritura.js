@@ -37,7 +37,10 @@ export class CasoUso_UsuarioEscritura {
         return usuarioARespuesta(creado);
     }
 
-    eliminarUsuario(dto) {}
+    async eliminarUsuario(id) {
+        const eliminado = await this.adaptadorSalida.eliminarUsuario(id);
+        return eliminado ? usuarioARespuesta(eliminado) : null;
+    }
 
     async actualizarUsuario(id, dto) {
         const datos = this.limpiarDatos(dto);

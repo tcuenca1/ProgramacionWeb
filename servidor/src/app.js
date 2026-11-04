@@ -8,10 +8,37 @@ import { contenedorUsuario, contenedorUsuarioOdm } from './contenedor/Contenedor
 import { ormPostgres } from './infraestructura/base_dato/OrmPostgresql.js';
 import { odmMongo } from './infraestructura/base_dato/OdmMongo.js';
 import { registrarLogAuditoria } from './infraestructura/util/logger.js';
+import swaggerUi from "swagger-ui-express";
+import YAML from "yaml";
+import { readFileSync } from "node:fs";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// 1. Localizar el archivo OpenAPI
+const rutaContrato = new URL(
+    "./infraestructura/doc/openapi.yaml",
+    import.meta.url
+);
+// 2. Leer y convertir YAML a un objeto JavaScript
+const contrato = YAML.parse(
+    readFileSync(rutaContrato, "utf8")
+);
+// 3. Publicar el contrato en formato JSON
+app.get("/openapi.json", (req, res) => {
+    res.json(contrato);
+});
+// 4. Configurar Swagger UI
+app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(null, {
+        swaggerOptions: {
+            url: "/openapi.json"
+        }
+    })
+);
 
 app.use((req, res, next) => {
     req.requestId = randomUUID();

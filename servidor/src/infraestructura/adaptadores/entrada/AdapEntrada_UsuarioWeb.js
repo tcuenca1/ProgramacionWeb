@@ -17,27 +17,31 @@ export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb {
     }
 
     async autentica(req, res) {
-        const dtoUsuario = new DtoUsuario(req.query.usu, req.query.cont, false, req.query.ciudad, req.query.tel);
-        const resultado = await this.casoUso.validarUsuario(dtoUsuario);
-        res.json({
-            message: resultado
-        });
+        try {
+            const dtoUsuario = new DtoUsuario(req.query.usu, req.query.cont, false, req.query.ciudad, req.query.tel);
+            const resultado = await this.casoUso.validarUsuario(dtoUsuario);
+            return res.status(200).json({
+                message: resultado
+            });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
     }
 
     async listar(req, res) {
         try {
-            res.json(await this.casoUso.listarUsuarios());
+            return res.status(200).json(await this.casoUso.listarUsuarios());
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            return res.status(500).json({ error: error.message });
         }
     }
 
     async crear(req, res) {
         try {
             const creado = await this.casoUsoEscritura.crearUsuario(this.dtoDesdeCuerpo(req.body));
-            res.status(201).json(creado);
+            return res.status(201).json(creado);
         } catch (error) {
-            res.status(400).json({ error: error.message });
+            return res.status(400).json({ error: error.message });
         }
     }
 
@@ -47,9 +51,33 @@ export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb {
             if (!actualizado) {
                 return res.status(404).json({ error: "Usuario no encontrado" });
             }
-            res.json(actualizado);
+            return res.status(200).json(actualizado);
         } catch (error) {
-            res.status(400).json({ error: error.message });
+            return res.status(400).json({ error: error.message });
+        }
+    }
+
+    async actualizarParcial(req, res) {
+        try {
+            const actualizado = await this.casoUsoEscritura.actualizarUsuario(req.params.id, req.body);
+            if (!actualizado) {
+                return res.status(404).json({ error: "Usuario no encontrado" });
+            }
+            return res.status(200).json(actualizado);
+        } catch (error) {
+            return res.status(400).json({ error: error.message });
+        }
+    }
+
+    async eliminar(req, res) {
+        try {
+            const eliminado = await this.casoUsoEscritura.eliminarUsuario(req.params.id);
+            if (!eliminado) {
+                return res.status(404).json({ error: "Usuario no encontrado" });
+            }
+            return res.status(200).json({ message: "Usuario eliminado correctamente", id: req.params.id });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
         }
     }
 }
