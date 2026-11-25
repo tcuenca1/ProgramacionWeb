@@ -1,5 +1,6 @@
 import { PuertoEntradaUsuarioWeb } from "../../../aplicacion/puerto/entrada/PuertoEntradaUsuarioWeb.js";
 import { DtoUsuario } from "../../../aplicacion/dto/DtoUsuario.js";
+import { DtoRespuestaUsuarioV2 } from "../../../aplicacion/dto/DtoRespuestaUsuarioV2.js";
 
 export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb {
     constructor(casoUso, casoUsoEscritura = null) {
@@ -16,15 +17,32 @@ export class AdapEntrada_UsuarioWeb extends PuertoEntradaUsuarioWeb {
         );
     }
 
-    async autentica(req, res) {
+    async autentica(req, res, dto) {
         try {
-            const dtoUsuario = new DtoUsuario(req.query.usu, req.query.cont, false, req.query.ciudad, req.query.tel);
+            const dtoUsuario = dto ?? new DtoUsuario(
+                req.query.usu, req.query.cont, false, req.query.ciudad ?? 'Machala', req.query.tel ?? '099854213'
+            );
             const resultado = await this.casoUso.validarUsuario(dtoUsuario);
             return res.status(200).json({
-                message: resultado
+                mensaje: "respuesta",
+                usuario: resultado.getNombre(),
+                esvalido: resultado.getValido()
             });
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            return res.status(200).json({ error: "ERROR_INTERNO", mensaje: error.message });
+        }
+    }
+
+    async autenticaV2(req, res, dto) {
+        try {
+            const resultado = await this.casoUso.validarUsuario(dto);
+            const respuesta = new DtoRespuestaUsuarioV2(resultado);
+            return res.status(resultado.getValido() ? 200 : 403).json(respuesta);
+        } catch (e) {
+            return res.status(500).json({
+                error: "ERROR_INTERNO",
+                mensaje: "No se pudo procesar la solicitud"
+            });
         }
     }
 

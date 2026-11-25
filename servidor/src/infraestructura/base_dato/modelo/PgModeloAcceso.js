@@ -13,6 +13,9 @@ export const accesoModelo = ormPostgres.define(
         },   
         dispositivo: {
             type: DataTypes.STRING
+        },
+        usuario_id: {
+            type: DataTypes.INTEGER
         }
     },
     {

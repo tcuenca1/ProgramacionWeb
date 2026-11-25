@@ -8,6 +8,8 @@ info:
 servers:
   - url: http://localhost:3000
     description: Servidor de desarrollo
+  - url: http://localhost:8082
+    description: API Gateway
 
 tags:
   - name: Usuarios
@@ -16,6 +18,7 @@ tags:
 paths:
   /6A/usuario:
     get:
+      deprecated: true
       tags:
         - Usuarios
       summary: Autenticar usuario
@@ -37,28 +40,89 @@ paths:
           description: Contraseña del usuario
           schema:
             type: string
-          example: "123456"
+          example: "perez1"
 
       responses:
         '200':
-          description: Solicitud de autenticación procesada correctamente
+          description: Resultado de la autenticación o error heredado
+          headers:
+            Deprecation:
+              schema: {type: string}
+            Sunset:
+              schema: {type: string}
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    required: [mensaje, usuario, esvalido]
+                    properties:
+                      mensaje: {type: string}
+                      usuario: {type: string}
+                      esvalido: {type: boolean}
+                  - type: object
+                    required: [error, mensaje]
+                    properties:
+                      error: {type: string}
+                      mensaje: {}
+
+  /6A/v2/usuario:
+    post:
+      tags: [Usuarios]
+      summary: Autenticar usuario V2
+      operationId: autenticarUsuarioV2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nombre, contrasena]
+              properties:
+                nombre: {type: string, minLength: 1}
+                contrasena: {type: string, format: password, minLength: 1}
+      responses:
+        '200':
+          description: Autenticación correcta
           content:
             application/json:
               schema:
                 type: object
+                required: [autenticado, usuario]
                 properties:
+                  autenticado: {type: boolean, enum: [true]}
                   usuario:
-                    type: string
-                    example: juan
-                  valido:
-                    type: boolean
-                    example: true
-
+                    type: object
+                    required: [nombre]
+                    properties:
+                      nombre: {type: string}
+        '403':
+          description: Credenciales rechazadas
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [autenticado, usuario]
+                properties:
+                  autenticado: {type: boolean, enum: [false]}
+                  usuario: {type: object, nullable: true, enum: [null]}
         '400':
-          description: Parámetros incorrectos o incompletos
-
-        '401':
-          description: Credenciales incorrectas
-
+          description: Datos incorrectos
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [error, mensaje]
+                properties:
+                  error: {type: string, example: DATOS_INCORRECTOS}
+                  mensaje: {type: string, example: Debe ingresar las credenciales}
         '500':
-          description: Error interno del servidor
+          description: Error interno
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [error, mensaje]
+                properties:
+                  error: {type: string, example: ERROR_INTERNO}
+                  mensaje: {type: string, example: No se pudo procesar la solicitud}

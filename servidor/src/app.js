@@ -11,6 +11,7 @@ import { registrarLogAuditoria } from './infraestructura/util/logger.js';
 import swaggerUi from "swagger-ui-express";
 import YAML from "yaml";
 import { readFileSync } from "node:fs";
+import { obsolescenciaV1 } from './infraestructura/middleware/Obsolescencia.js';
 
 const app = express();
 app.use(cors());
@@ -88,8 +89,25 @@ app.get('/6A/mensaje-no-bloqueante', async (req, res) => {
     });
 });
 
-app.get('/6A/usuario', async (req, res) => {
-    await contenedorUsuario.adap.autentica(req, res);
+app.get('/6A/usuario', obsolescenciaV1, (req, res) => {
+    const usu = req.query.usu;
+    const cont = req.query.cont;
+    const dtoUsuario = new DtoUsuario(usu, cont, false, 'Machala', '099854213');
+    return contenedorUsuario.adap.autentica(req, res, dtoUsuario);
+});
+
+app.post('/6A/v2/usuario', (req, res) => {
+    res.setHeader('Cache-Control', 'no-store');
+    const { nombre, contrasena } = req.body ?? {};
+    if (typeof nombre !== 'string' || !nombre.trim() ||
+        typeof contrasena !== 'string' || !contrasena) {
+        return res.status(400).json({
+            error: 'DATOS_INCORRECTOS',
+            mensaje: 'Debe ingresar las credenciales'
+        });
+    }
+    const dtoUsuario = new DtoUsuario(nombre, contrasena, false, 'Machala', '099854213');
+    return contenedorUsuario.adap.autenticaV2(req, res, dtoUsuario);
 });
 
 app.get('/6A/orm/usuarios', async (req, res) => {

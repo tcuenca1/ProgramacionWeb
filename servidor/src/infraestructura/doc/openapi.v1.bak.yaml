@@ -1,0 +1,64 @@
+openapi: 3.0.3
+
+info:
+  title: API de Autenticación de Usuarios
+  description: Contrato HTTP para autenticar usuarios mediante arquitectura hexagonal.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor de desarrollo
+
+tags:
+  - name: Usuarios
+    description: Operaciones de autenticación
+
+paths:
+  /6A/usuario:
+    get:
+      tags:
+        - Usuarios
+      summary: Autenticar usuario
+      description: Verifica las credenciales de un usuario.
+      operationId: autenticarUsuario
+
+      parameters:
+        - name: usu
+          in: query
+          required: true
+          description: Nombre de usuario
+          schema:
+            type: string
+          example: juan
+
+        - name: cont
+          in: query
+          required: true
+          description: Contraseña del usuario
+          schema:
+            type: string
+          example: "123456"
+
+      responses:
+        '200':
+          description: Solicitud de autenticación procesada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usuario:
+                    type: string
+                    example: juan
+                  valido:
+                    type: boolean
+                    example: true
+
+        '400':
+          description: Parámetros incorrectos o incompletos
+
+        '401':
+          description: Credenciales incorrectas
+
+        '500':
+          description: Error interno del servidor
