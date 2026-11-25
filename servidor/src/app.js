@@ -6,6 +6,7 @@ import { DtoUsuario } from './aplicacion/dto/DtoUsuario.js';
 import { AdapSalida_SerializacionBinaria } from './infraestructura/adaptadores/salida/AdapSalida_SerializacionBinaria.js';
 import { contenedorUsuario, contenedorUsuarioOdm } from './contenedor/ContenedorUsuario.js';
 import { ormPostgres } from './infraestructura/base_dato/OrmPostgresql.js';
+import { sembrarUsuarioInicial } from './infraestructura/base_dato/seedPostgres.js';
 import { odmMongo } from './infraestructura/base_dato/OdmMongo.js';
 import { registrarLogAuditoria } from './infraestructura/util/logger.js';
 import swaggerUi from "swagger-ui-express";
@@ -153,6 +154,7 @@ try {
     console.log('Conexión ORM (Sequelize) a PostgreSQL establecida');
     await ormPostgres.sync();
     console.log('Modelos sincronizados con PostgreSQL (tabla auditoria_evento lista)');
+    await sembrarUsuarioInicial();
 } catch (error) {
     console.error('No se pudo conectar a PostgreSQL con el ORM:', error.message);
 }

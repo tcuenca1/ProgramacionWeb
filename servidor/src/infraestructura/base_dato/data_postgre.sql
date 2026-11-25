@@ -7,6 +7,14 @@ CREATE TABLE IF NOT EXISTS usuario (
     telefono VARCHAR(50)
 );
 
+CREATE TABLE IF NOT EXISTS acceso (
+    id SERIAL PRIMARY KEY,
+    fecha TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    dispositivo VARCHAR(100),
+    usuario_id INT,
+    eliminado_en TIMESTAMP WITH TIME ZONE
+);
+
 CREATE TABLE IF NOT EXISTS evento_outbox (
     id SERIAL PRIMARY KEY,
     tipo VARCHAR(255) NOT NULL,
@@ -41,7 +49,7 @@ CREATE TABLE IF NOT EXISTS invitado (
 ) INHERITS (usuario);
     
 INSERT INTO administrador (nombre, contrasena, tipo, nivel_acceso, departamento, ciudad, telefono) 
-VALUES ('juan', 'perez', 'Administrador', 3, 'Sistemas', 'Bogotá', '3001234567');
+VALUES ('juan', 'perez1', 'Administrador', 3, 'Sistemas', 'Machala', '099854213');
 
 INSERT INTO personal (nombre, contrasena, tipo, turno, codigo_empleado, ciudad, telefono) 
 VALUES ('personal1', 'perspass123', 'Personal', 'Matutino', 'EMP-001', 'Medellín', '3109876543');
